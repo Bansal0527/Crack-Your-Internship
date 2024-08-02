@@ -1,0 +1,31 @@
+class Solution {
+    public static void help(TreeNode root, int high, int low, List<Integer> list) {
+        if(root == null) return;
+
+        else if(root.val >=low && root.val <= high) {
+            list.add(root.val);
+            help(root.left, high, low, list);
+            help(root.right, high, low, list);
+        }
+        
+        else if(root.val < low) { // go to left
+            help(root.right, high, low, list);
+        }
+        else {  //(root.val > high)  go to right
+            help(root.left, high, low, list);
+        }
+
+
+    }
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        // check if root.val is between low and high
+        int sum =0;
+        List<Integer> list = new ArrayList<>();
+        help(root, high, low, list);
+
+        for(int i=0; i<list.size(); i++) {
+            sum += list.get(i);
+        }
+        return sum;
+    }
+}
