@@ -1,0 +1,24 @@
+public class Solution {
+    public static int fn(int n, int heights[], int dp[]) {
+        if(n==0) {
+            return 0;
+        }
+        
+        if(dp[n] != -1) return dp[n];
+        int jump1 = fn(n-1, heights, dp) + Math.abs(heights[n] - heights[n-1]);
+        int jump2 = Integer.MAX_VALUE;
+        if(n>1) {
+         jump2 = fn(n-2, heights, dp) + Math.abs(heights[n] - heights[n-2]);
+        
+        }
+        return dp[n] = Math.min(jump1, jump2);
+        
+    }
+    public static int frogJump(int n, int heights[]) {
+        int dp[] = new int[n+1];
+        Arrays.fill(dp, -1);
+        // Write your code here..
+        return fn(n-1, heights, dp);
+    }
+
+}

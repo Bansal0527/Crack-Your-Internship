@@ -1,0 +1,44 @@
+// memoisation (up to down)
+//tc-> O(n)
+//sc -> O(n) + O(n)
+class Solution {
+    public static int fn(int nums[], int idx, int dp[]) {
+        if(idx ==0) return nums[0];
+        if(idx <0) return 0;
+        if(dp[idx] != -1) return dp[idx];
+        // 2 case -> pick or not pick
+        int pick = nums[idx] + fn(nums, idx - 2, dp);
+        int notpick = 0 + fn(nums, idx - 1, dp);
+        return dp[idx] =Math.max(pick, notpick);
+
+
+    }
+
+    public int rob(int[] nums) {
+        int idx = nums.length;
+        int dp[] = new int[idx+1];
+        Arrays.fill(dp, -1);
+        return fn(nums, idx-1, dp);
+    }
+}
+
+
+//    Tabluation 
+
+// public int rob(int[] nums) {
+    
+
+//     int dp[] = new int[nums.length+1];
+
+//     //base case
+//     dp[0] = nums[0];
+//     for(int i=1; i<nums.length; i++) {
+
+//         int pick = nums[i] ;
+//         if(i>1) pick += dp[i-2];
+//         int notpick = 0 + dp[i-1];
+//         dp[i] = Math.max(pick, notpick);
+//     }
+//     return dp[nums.length -1];
+// }
+// }
