@@ -16,7 +16,7 @@ class Solution {
 
     public int rob(int[] nums) {
         int idx = nums.length;
-        int dp[] = new int[idx+1];
+        int dp[] = new int[idx];
         Arrays.fill(dp, -1);
         return fn(nums, idx-1, dp);
     }
