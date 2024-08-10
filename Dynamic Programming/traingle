@@ -1,0 +1,28 @@
+class Solution {
+    public static int fn(List<List<Integer>> list, int i, int j, int dp[][]) {
+        // last row
+        if(i==list.size()-1) {
+            return list.get(i).get(j);
+        }
+
+
+        if(dp[i][j] != -1) return dp[i][j];
+        // 2 ways -> i , i+1
+        int way1 = list.get(i).get(j) + fn(list, i+1, j, dp);
+        int way2 = list.get(i).get(j) + fn(list, i+1, j+1, dp);
+        return dp[i][j] = Math.min(way1, way2);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        
+        int dp[][] = new int[triangle.size()][triangle.get(triangle.size()-1).size()];
+        // i -> row
+        // j-> col
+        for(int i=0; i<dp.length; i++) {
+            for(int j=0; j<dp[0].length; j++) {
+                dp[i][j] = -1;
+            }
+        }
+
+        return fn(triangle, 0, 0, dp);
+    }
+}
