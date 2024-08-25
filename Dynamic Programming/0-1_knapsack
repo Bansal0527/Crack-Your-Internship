@@ -1,0 +1,36 @@
+// memoistaion
+// TC -> O(n*w)
+public class Solution {
+
+     static int fn(int weight[], int value[], int idx, int maxWeight, int dp[][]) {
+        //base case
+        if(idx == 0) {
+            if(maxWeight >= weight[idx]) return value[0];
+            else return 0;
+        }
+        
+        //option1 -> not pick
+        if(dp[idx][maxWeight] != -1) return dp[idx][maxWeight];
+
+        int notPick = 0 + fn(weight, value, idx-1, maxWeight, dp);
+        int pick = Integer.MIN_VALUE;
+        if(maxWeight >= weight[idx]) {
+            pick = value[idx] + fn(weight, value, idx-1, maxWeight - weight[idx], dp);
+        }
+
+        return dp[idx][maxWeight] =  Math.max(notPick, pick);
+    }
+
+    static int knapsack(int[] weight, int[] value, int n, int maxWeight) {
+
+
+            int dp[][] = new int[n][maxWeight +1];
+
+            for(int i=0; i<n; i++) {
+                Arrays.fill(dp[i], -1);
+            } 
+
+
+            return fn(weight, value, n-1, maxWeight, dp);
+    }
+}

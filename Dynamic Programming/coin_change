@@ -1,0 +1,31 @@
+// memoistaion
+class Solution {
+    public static int fn(int coins[], int amount , int idx, int dp[][]) {
+        // base case
+        if(idx ==0) {
+            if(amount % coins[0] ==0) return amount / coins[0];
+            else return 1000000009; 
+        }
+        // choices 
+        if(dp[idx][amount] != -1) return dp[idx][amount];
+
+        int notPick = fn(coins, amount , idx-1, dp);
+        int pick = Integer.MAX_VALUE;
+        if(amount >= coins[idx]) {
+            pick = 1 + fn(coins, amount - coins[idx], idx, dp);
+        }
+        return dp[idx][amount] = Math.min(notPick, pick);
+    }
+    public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int dp[][] = new int[n][amount +1];
+
+        for(int i=0; i<n; i++) {
+                Arrays.fill(dp[i], -1);
+        }
+
+        int result = fn(coins, amount, n-1, dp);
+
+        return result == 1000000009 ? -1 : result;
+    }
+}

@@ -9,7 +9,7 @@ class Solution {
         // 2 case -> pick or not pick
         int pick = nums[idx] + fn(nums, idx - 2, dp);
         int notpick = 0 + fn(nums, idx - 1, dp);
-        return dp[idx] =Math.max(pick, notpick);
+        return dp[idx] = Math.max(pick, notpick);
 
 
     }
